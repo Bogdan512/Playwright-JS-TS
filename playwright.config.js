@@ -10,7 +10,7 @@ const config =({
   timeout: 40 * 1000,
 // Expect a condition to  be met within 30 seconds
   expect: {
-    timeout: 30000
+    timeout: 5000
   },
   reporter: 'html',
   use: {
