@@ -36,6 +36,12 @@ test.only('UI Controls', async ({page})=>
    await dropdown.selectOption("consult");
    await page.locator(".radiotextsty").last().check();
    await page.locator("#okayBtn").click();
+   expect(page.locator(".radiotextsty").last()).toBeChecked();
+   console.log(await page.locator(".radiotextsty").last().isChecked()); //isChecked is a method which will return true or false
+   console.log(await page.locator("#terms").isChecked());
+   await page.locator("#terms").check();
+   expect(page.locator("#terms")).toBeChecked();
+   expect( page.locator("#terms").toBeChecked()).toBeTruthy();
 
    await page.pause();
 });
