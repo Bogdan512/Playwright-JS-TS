@@ -29,19 +29,21 @@ test('Browser Context Playwright test', async ({browser})=>
 
 test.only('UI Controls', async ({page})=>
 {
-   await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
-   const userNamae = page.locator("#username");
-   const signIn = page.locator("signInBtn");
-   const dropdown = page.locator("select.form-control");
-   await dropdown.selectOption("consult");
-   await page.locator(".radiotextsty").last().check();
-   await page.locator("#okayBtn").click();
-   expect(page.locator(".radiotextsty").last()).toBeChecked();
-   console.log(await page.locator(".radiotextsty").last().isChecked()); //isChecked is a method which will return true or false
-   console.log(await page.locator("#terms").isChecked());
-   await page.locator("#terms").check();
-   expect(page.locator("#terms")).toBeChecked();
-   expect( page.locator("#terms").toBeChecked()).toBeTruthy();
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+    const userNamae = page.locator("#username");
+    const signIn = page.locator("signInBtn");
+    const dropdown = page.locator("select.form-control");
+    const documentLink = page.locator("[href*='documents-request']");
+    await dropdown.selectOption("consult");
+    await page.locator(".radiotextsty").last().check();
+    await page.locator("#okayBtn").click();
+    expect(page.locator(".radiotextsty").last()).toBeChecked();
+    console.log(await page.locator(".radiotextsty").last().isChecked()); //isChecked is a method which will return true or false
+    console.log(await page.locator("#terms").isChecked());
+    await page.locator("#terms").check();
+    expect(page.locator("#terms")).toBeChecked();
+    expect( page.locator("#terms").isChecked()).toBeTruthy();
+    await expect(documentLink).toHaveAttribute("class","blinkingText");
 
-   await page.pause();
+   //await page.pause();
 });
