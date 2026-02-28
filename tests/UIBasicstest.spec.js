@@ -48,7 +48,7 @@ test('UI Controls', async ({page})=>
    //await page.pause();
 });
 
-test.only('Child Windows handling', async ({browser})=>
+test('Child Windows handling', async ({browser})=>
 {
     const context = await browser.newContext();
     const page = await context.newPage();
