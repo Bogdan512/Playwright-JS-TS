@@ -69,7 +69,8 @@ test.only('Child Windows handling', async ({browser})=>
 
     await page.bringToFront(); // to bring the main page to front
     await page.locator('#username').fill(domain);
+    console.log("Here should be the username -> " + await page.locator("#username").inputValue());
     
 
-   await page.pause();
+   //await page.pause();
 });
