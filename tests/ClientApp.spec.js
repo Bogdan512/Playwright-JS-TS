@@ -50,18 +50,21 @@ test.only('Browser Context Playwright test', async ({page})=>
     await page.locator(".action__submit").click();
     await expect(page.locator(".hero-primary")).toHaveText(" Thankyou for the order. ");
     const orderID = await page.locator(".em-spacer-1 .ng-star-inserted").textContent();
-    const cleanOrderID = orderID.trim().replace(/\|/g, "").trim(); // ✅ remove pipes then trim
-    console.log("Asta e OrderID => " + cleanOrderID);
-    await page.locator("[routerlink='/dashboard/myorders']").first().click();
-    await page.locator(".table-bordered tr").first().waitFor();
-    const orderIDs = await page.locator(".table-bordered tbody tr th").allTextContents();
-    const viewBtns = await page.locator(".table-bordered tbody tr td button").all();
-    for(let i=0; i<orderIDs.length; ++i){
-        if( orderIDs[i].trim() === cleanOrderID){
-            viewBtns[i].click();
+    await page.locator("button[routerlink*='myorders']").click();
+    await page.locator("tbody").waitFor();
+    const rows = page.locator("tbody tr");
+
+    for(let i=0; i<await rows.count(); ++i)
+    {
+        const rowOrderID =await rows.nth(i).locator("th").textContent();
+        if(orderID.includes(rowOrderID))
+        {
+            await rows.nth(i).locator("button").first().click();
             break;
         }
     }
+    const orderIDDetails = await page.locator("div.col-text").textContent();
+    expect(orderID.includes(orderIDDetails)).toBeTruthy();
 
     await page.pause();
 });
