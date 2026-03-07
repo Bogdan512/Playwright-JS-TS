@@ -5,7 +5,7 @@ test('Browser Context Playwright test', async ({page})=>
 {
     const productName = "ZARA COAT 3";
     const products = page.locator(".card-body");
-    const email = "anshika@gmail.com";
+    const email = "improve@gmail.com";
 
     await page.goto("https://rahulshettyacademy.com/client");
     await page.locator("#userEmail").fill(email);
