@@ -48,10 +48,20 @@ test.only('Browser Context Playwright test', async ({page})=>
 
     await expect(page.locator(".user__name [type=text]").first()).toHaveText(email);
     await page.locator(".action__submit").click();
-    expect(page.locator(".hero-primary")).toHaveText(" Thankyou for the order. ");
+    await expect(page.locator(".hero-primary")).toHaveText(" Thankyou for the order. ");
     const orderID = await page.locator(".em-spacer-1 .ng-star-inserted").textContent();
-    console.log(orderID);
-
+    const cleanOrderID = orderID.trim().replace(/\|/g, "").trim(); // ✅ remove pipes then trim
+    console.log("Asta e OrderID => " + cleanOrderID);
+    await page.locator("[routerlink='/dashboard/myorders']").first().click();
+    await page.locator(".table-bordered tr").first().waitFor();
+    const orderIDs = await page.locator(".table-bordered tbody tr th").allTextContents();
+    const viewBtns = await page.locator(".table-bordered tbody tr td button").all();
+    for(let i=0; i<orderIDs.length; ++i){
+        if( orderIDs[i].trim() === cleanOrderID){
+            viewBtns[i].click();
+            break;
+        }
+    }
 
     await page.pause();
 });
