@@ -29,22 +29,15 @@ test.only('Browser Context Playwright test', async ({page})=>
     await page.getByText("Place Order").click();
 
     await expect(page.getByText(" Thankyou for the order. ")).toBeVisible();
+    await page.getByLabel
 
      
-    // const orderID = await page.locator(".em-spacer-1 .ng-star-inserted").textContent();
-    // await page.locator("button[routerlink*='myorders']").click();
-    // await page.locator("tbody").waitFor();
-    // const rows = page.locator("tbody tr");
-
-    // for(let i=0; i<await rows.count(); ++i)
-    // {
-    //     const rowOrderID =await rows.nth(i).locator("th").textContent();
-    //     if(orderID.includes(rowOrderID))
-    //     {
-    //         await rows.nth(i).locator("button").first().click();
-    //         break;
-    //     }
-    // }
+    const orderID = await page.locator("label.ng-star-inserted").textContent();
+    const cleanOrderID = orderID.trim().replace(/\|/g, "").trim();
+    await page.getByRole("button", {name: "Orders"}).click();
+    await page.locator("tbody tr").first().waitFor();
+    await page.locator("tbody tr").filter({hasText: cleanOrderID}).locator("button").filter({hasText: "View"}).click();
+    await expect(page.getByText(cleanOrderID)).toBeVisible();
     // const orderIDDetails = await page.locator("div.col-text").textContent();
     // expect(orderID.includes(orderIDDetails)).toBeTruthy();
 
