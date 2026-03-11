@@ -1,7 +1,7 @@
 const {test, expect} = require('@playwright/test');
 const { only } = require('node:test');
 
-test.only('Browser Context Playwright test', async ({page})=>
+test('Browser Context Playwright test', async ({page})=>
 {
     const productName = "ZARA COAT 3";
     const products = page.locator(".card-body");
@@ -38,8 +38,7 @@ test.only('Browser Context Playwright test', async ({page})=>
     await page.locator("tbody tr").first().waitFor();
     await page.locator("tbody tr").filter({hasText: cleanOrderID}).locator("button").filter({hasText: "View"}).click();
     await expect(page.getByText(cleanOrderID)).toBeVisible();
-    // const orderIDDetails = await page.locator("div.col-text").textContent();
-    // expect(orderID.includes(orderIDDetails)).toBeTruthy();
+
 
     await page.pause();
 });
