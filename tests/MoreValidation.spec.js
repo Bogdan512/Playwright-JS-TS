@@ -16,6 +16,11 @@ test.only("Pop-up validation", async ({page})=>
     await page.getByRole("button", {name:"Confirm"}).click();
     await page.pause();
     await page.getByRole("button", {name:"Mouse Hover"}).hover();
+    const framepage = page.frameLocator("#courses-iframe");
+    await framepage.locator("li a[href*='lifetime']:visible").click();
+    const participantsNumber = (await framepage.locator(".text  h2").textContent()).split(" ")[1];
+    console.log("Number of participants => " + participantsNumber);
+    
 
 
 });
