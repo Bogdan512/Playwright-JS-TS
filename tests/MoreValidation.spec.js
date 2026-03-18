@@ -1,7 +1,7 @@
 const {test, expect} = require('@playwright/test');
 
 
-test.only("Pop-up validation", async ({page})=>
+test("Pop-up validation", async ({page})=>
 {
     await page.goto("https://www.rahulshettyacademy.com/AutomationPractice/");
     //await page.goto("https://www.google.com/");
@@ -18,8 +18,9 @@ test.only("Pop-up validation", async ({page})=>
     await page.getByRole("button", {name:"Mouse Hover"}).hover();
     const framepage = page.frameLocator("#courses-iframe");
     await framepage.locator("li a[href*='lifetime']:visible").click();
-    const participantsNumber = (await framepage.locator(".text  h2").textContent()).split(" ")[1];
-    console.log("Number of participants => " + participantsNumber);
+    const textCheck = await framepage.locator(".text  h2").textContent();
+    textCheck.split(" ")[1];
+    console.log("Number of participants => " + textCheck);
     
 
 

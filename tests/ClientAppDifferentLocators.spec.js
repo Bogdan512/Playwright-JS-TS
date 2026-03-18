@@ -36,7 +36,8 @@ test('Browser Context Playwright test', async ({page})=>
     const cleanOrderID = orderID.trim().replace(/\|/g, "").trim();
     await page.getByRole("button", {name: "Orders"}).click();
     await page.locator("tbody tr").first().waitFor();
-    await page.locator("tbody tr").filter({hasText: cleanOrderID}).locator("button").filter({hasText: "View"}).click();
+    await page.locator("tbody tr").filter({hasText: cleanOrderID})
+    .locator("button").filter({hasText: "View"}).click();
     await expect(page.getByText(cleanOrderID)).toBeVisible();
 
 
