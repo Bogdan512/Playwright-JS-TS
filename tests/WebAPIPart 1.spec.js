@@ -3,6 +3,8 @@ const { only } = require('node:test');
 
 const loginPayLoad = {userEmail: "improve@gmail.com", userPassword: "Iamking@000"};
 
+let token;
+
 test.beforeAll(async () =>
 {
 
@@ -14,25 +16,27 @@ test.beforeAll(async () =>
     )
     expect(loginResponse.ok()).toBeTruthy();
     const loginResponseJson = await loginResponse.json();
-    const token = loginResponseJson.token;
+    token = loginResponseJson.token;
+    console.log("Token: => ", token); 
 
 });
 
-test.only('Browser Context Playwright test', async ({page})=>
+test.only('Place order Playwright test', async ({page})=>
 {
+    await page.addInitScript(value => 
+        {
+            window.localStorage.setItem("token", value);
+        }, token);
+
+    const email = "improve@gmail.com";
+    await page.goto("https://rahulshettyacademy.com/client");
     const productName = "ZARA COAT 3";
     const products = page.locator(".card-body");
-    const email = "improve@gmail.com";
-
-    await page.goto("https://rahulshettyacademy.com/client");
-    await page.locator("#userEmail").fill(email);
-    await page.locator("#userPassword").fill("Iamking@000");
-    await page.locator("[value='Login']").click();
     //await page.waitForLoadState('networkidle');  can be flaky, better to wait for specific element
     await page.locator(".card-body b").first().waitFor();
 
     const titles = await page.locator(".card-body b").allTextContents();
-    console.log(titles);
+    console.log("Items found: => " +titles);
 
     const count = await products.count();
     for(let i=0; i<count; ++i)
@@ -83,5 +87,5 @@ test.only('Browser Context Playwright test', async ({page})=>
     const orderIDDetails = await page.locator("div.col-text").textContent();
     expect(orderID.includes(orderIDDetails)).toBeTruthy();
 
-    await page.pause();
+    // await page.pause();
 });
