@@ -4,42 +4,22 @@ const { only } = require('node:test');
 const loginPayLoad = {userEmail: "improve@gmail.com", userPassword: "Iamking@000"};
 const orderPayLoad = {orders :[{country: "India", productOrderedId: "6960eac0c941646b7a8b3e68"}]};
 
+const {APIUtils} = require('./utils/APIUtils');
 let token;
 let orderID;
 
 test.beforeAll(async () =>
 {
-
     const apiContext = await request.newContext();
-    const loginResponse = await apiContext.post("https://rahulshettyacademy.com/api/ecom/auth/login",
-    {
-        data: loginPayLoad
-    }
-    )
-    expect(loginResponse.ok()).toBeTruthy();
-    const loginResponseJson = await loginResponse.json();
-    token = loginResponseJson.token;
-    console.log("Token: => ", token); 
-
-    const orderResponse = await apiContext.post
-    ("https://rahulshettyacademy.com/api/ecom/order/create-order",
-        {
-            data: orderPayLoad,
-            headers: 
-            {
-                "Authorization": token,
-                "Content-Type": "application/json"
-            }
-        }
-    )
-    const orderResponseJson = await orderResponse.json();
-    console.log("orderResponseJson: => ", orderResponseJson);
-    orderID = orderResponseJson.orders[0];
+    const apiUtils = new APIUtils(apiContext, loginPayLoad);
+    apiUtils.createOrder(orderPayLoad);
 
 });
 
 test.only('Place order Playwright test', async ({page})=>
 {
+    const apiUtils = new APIUtils(apiContext, loginPayLoad);
+    const orderId = createOrder(orderPayLoad); 
     await page.addInitScript(value => 
         {
             window.localStorage.setItem("token", value);
