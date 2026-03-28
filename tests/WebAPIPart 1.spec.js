@@ -15,7 +15,7 @@ test.beforeAll(async () =>
 
 });
 
-test.only('Place order Playwright test', async ({page})=>
+test('Place order Playwright test', async ({page})=>
 {
     await page.addInitScript(value => 
         {
