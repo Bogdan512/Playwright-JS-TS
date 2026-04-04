@@ -20,7 +20,7 @@ test.beforeAll(async ({browser})=>
 });
 
 
-test.only('Browser Context Playwright test', async ()=>
+test('Browser Context Playwright test', async ()=>
 {
     const productName = "ZARA COAT 3";
     const page = await webContext.newPage();
