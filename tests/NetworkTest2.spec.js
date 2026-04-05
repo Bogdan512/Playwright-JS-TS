@@ -1,7 +1,7 @@
 const { test, expect, request } = require('@playwright/test');
 const { only } = require('node:test');
 
-test.only('Security test request intercept', async ({ page }) => {
+test('Security test request intercept', async ({ page }) => {
     const productName = "ZARA COAT 3";
     const products = page.locator(".card-body");
     const email = "improve@gmail.com";
