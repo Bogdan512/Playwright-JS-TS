@@ -16,7 +16,7 @@ test.beforeAll(async () =>
 
 });
 
-test.only('Fake Order', async ({page})=>
+test('Fake Order', async ({page})=>
 {
     await page.addInitScript(value => 
         {
