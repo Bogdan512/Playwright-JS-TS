@@ -1,7 +1,7 @@
 const {test, expect} = require('@playwright/test');
 const { only } = require('node:test');
 
-test.only('Browser Context Playwright test', async ({page})=>
+test('Browser Context Playwright test', async ({page})=>
 {
 
     //page.route('**/*.css', route=> route.abort());

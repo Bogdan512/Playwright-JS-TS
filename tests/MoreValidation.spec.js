@@ -25,3 +25,13 @@ test("Pop-up validation", async ({page})=>
 
 
 });
+
+test.only("Screenshot and visual comparison", async({page})=>
+{
+    await page.goto("https://www.rahulshettyacademy.com/AutomationPractice/");
+    await expect(page.getByPlaceholder("Hide/Show Example")).toBeVisible();
+    await page.locator('fieldset').nth(8).screenshot({path: 'partialScreenshot.png'});
+    await page.getByRole("button", {name:"Hide"}).click();
+    await page.screenshot({path: 'screenshot.png'});
+    await expect(page.getByPlaceholder("Hide/Show Example")).toBeHidden();
+})
