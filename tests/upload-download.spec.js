@@ -37,6 +37,8 @@ async function readExcel(worksheet, searchText)
 
 test('Upload download excel validation', async({browser}) =>
 {
+    const searchText = "Banana";
+    const updateValue = "350";
     const context = await browser.newContext
     ({
         acceptDownloads: true
@@ -48,7 +50,9 @@ test('Upload download excel validation', async({browser}) =>
     const download = await downloadPromise;
     const filePath = "C:\\Users\\ciurt\\Downloads\\download.xlsx";
     await download.saveAs(filePath);
-    writeExcelTest("Banana", 350, {rowChange:0, colChange:2}, "C:\\Users\\ciurt\\Downloads\\download.xlsx");
+    writeExcelTest(searchText, updateValue, {rowChange:0, colChange:2}, "C:\\Users\\ciurt\\Downloads\\download.xlsx");
     await page.locator("#fileinput").click();
     await page.locator("#fileinput").setInputFiles("C:\\Users\\ciurt\\Downloads\\download.xlsx");
+    const desiredRow = page.getByRole('row').filter({hasText: searchText});
+    await expect(desiredRow.locator("#cell-4-undefined")).toContainText(updateValue);
 });
