@@ -18,6 +18,7 @@ class LoginPage
     await this.userName.fill(username);
     await this.password.fill(password);
     await this.signInButton.click();
+    await this.page.locator(".card-body b").first().waitFor();
     }
 }
 module.exports = {LoginPage};
