@@ -26,7 +26,7 @@ test("Pop-up validation", async ({page})=>
 
 });
 
-test.only("Screenshot and visual comparison", async({page})=>
+test("Screenshot and visual comparison", async({page})=>
 {
     await page.goto("https://www.rahulshettyacademy.com/AutomationPractice/");
     await expect(page.getByPlaceholder("Hide/Show Example")).toBeVisible();
