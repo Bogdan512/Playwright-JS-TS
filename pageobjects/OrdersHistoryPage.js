@@ -5,13 +5,13 @@ class OrdersHistoryPage
         this.page = page;
         this.ordersTable = page.locator("tbody");
         this.rows = page.locator("tbody tr");
-        this.orderdIdDetails =page.locator(".col-text");
+        this.orderdIdDetails = page.locator(".em-spacer-1 .ng-star-inserted");
     }
     
     async searchOrderAndSelect(orderId)
     {
 
-        await this.ordersTable.waitFor();
+        await this.ordersTable.first().waitFor();
         for(let i =0; i<await this.rows.count(); ++i)
         {
             const rowOrderId =await this.rows.nth(i).locator("th").textContent();
