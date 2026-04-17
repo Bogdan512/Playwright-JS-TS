@@ -23,7 +23,8 @@ class OrdersReviewPage
         for(let i =0;i< optionsCount; ++i)
         {
         const  text =  await this.dropdown.locator("button").nth(i).textContent();
-            if(text.trim() === countryName)
+            //if(text.trim() === countryName)
+            if(text === countryName)
             {
             await this.dropdown.locator("button").nth(i).click();
             break;
