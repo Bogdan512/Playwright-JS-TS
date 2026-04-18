@@ -4,7 +4,7 @@ const { only } = require('node:test');
 const loginPayLoad = {userEmail: "improve@gmail.com", userPassword: "Iamking@000"};
 const orderPayLoad = {orders :[{country: "India", productOrderedId: "6960eac0c941646b7a8b3e68"}]};
 
-const {APIUtils} = require('./utils/APIUtils');
+const {APIUtils} = require('../utils/APIUtils');
 let response;
 
 test.beforeAll(async () =>

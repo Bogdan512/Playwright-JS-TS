@@ -1,5 +1,7 @@
 const {test, expect} = require('@playwright/test');
 const {POManager} = require('../pageobjects/POManger');
+const dataset = JSON.parse(JSON.stringify(require("../utils/placeorderTestData.json")));
+
 
 test.only('Browser Context Playwright test', async ({page})=>
 {
@@ -15,16 +17,16 @@ test.only('Browser Context Playwright test', async ({page})=>
     const ordersHistoryPage = poManager.getOrdersHistoryPage();
     
     await loginPage.goto();
-    await loginPage.validLogin(username, password);
+    await loginPage.validLogin(dataset.username, dataset.password);
     
-    await dashboardPage.searchProductAddToCart(productName);
+    await dashboardPage.searchProductAddToCart(dataset.productName);
     await dashboardPage.navigateToCart();
 
-    await cartPage.VerifyProductIsDisplayed(productName);
-    await cartPage.getProductLocator(productName).waitFor();
+    await cartPage.VerifyProductIsDisplayed(dataset.productName);
+    await cartPage.getProductLocator(dataset.productName).waitFor();
     await cartPage.Checkout();
 
-    await ordersReviewPage.VerifyEmailId(username);
+    await ordersReviewPage.VerifyEmailId(dataset.username);
     await ordersReviewPage.searchCountryAndSelect("ind", " India");
     const orderId = await ordersReviewPage.SubmitAndGetOrderId();
    console.log("orderId => " + orderId);
