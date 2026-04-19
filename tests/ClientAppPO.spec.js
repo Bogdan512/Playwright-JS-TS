@@ -2,13 +2,11 @@ const {test, expect} = require('@playwright/test');
 const {POManager} = require('../pageobjects/POManger');
 const dataset = JSON.parse(JSON.stringify(require("../utils/placeorderTestData.json")));
 
-
-test.only('Browser Context Playwright test', async ({page})=>
+for(const data of dataset)
 {
-    const productName = "ZARA COAT 3";
+test.only(`Client app login for ${data.productName}`, async ({page})=>
+{
     const products = page.locator(".card-body");
-    const username = "improve@gmail.com";
-    const password = "Iamking@000";
     const poManager = new POManager(page);
     const loginPage = poManager.getLoginPage();
     const dashboardPage = poManager.getDashboardPage();
@@ -17,16 +15,16 @@ test.only('Browser Context Playwright test', async ({page})=>
     const ordersHistoryPage = poManager.getOrdersHistoryPage();
     
     await loginPage.goto();
-    await loginPage.validLogin(dataset.username, dataset.password);
+    await loginPage.validLogin(data.username, data.password);
     
-    await dashboardPage.searchProductAddToCart(dataset.productName);
+    await dashboardPage.searchProductAddToCart(data.productName);
     await dashboardPage.navigateToCart();
 
-    await cartPage.VerifyProductIsDisplayed(dataset.productName);
-    await cartPage.getProductLocator(dataset.productName).waitFor();
+    await cartPage.VerifyProductIsDisplayed(data.productName);
+    await cartPage.getProductLocator(data.productName).waitFor();
     await cartPage.Checkout();
 
-    await ordersReviewPage.VerifyEmailId(dataset.username);
+    await ordersReviewPage.VerifyEmailId(data.username);
     await ordersReviewPage.searchCountryAndSelect("ind", " India");
     const orderId = await ordersReviewPage.SubmitAndGetOrderId();
    console.log("orderId => " + orderId);
@@ -36,3 +34,4 @@ test.only('Browser Context Playwright test', async ({page})=>
     await dashboardPage.navigateToOrders();
     await ordersHistoryPage.searchOrderAndSelect("orderID");
 });
+}
