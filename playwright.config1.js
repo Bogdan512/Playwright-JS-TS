@@ -22,7 +22,10 @@ const config =({
         browserName: 'webkit',
         headless: true,
         screenshot: 'on',
+        //ignoreHttpsErrors: true,
+        //permissions: ['geolocation'],
         //trace: 'on',
+        //...devices['iPhone 15 Pro Max']
       }
     },
     {

@@ -18,6 +18,7 @@ const config =({
     headless: false,
     screenshot: 'on',
     //trace: 'on',
+    //viewport: { width: 720, height: 720 }
   }
 });
 
