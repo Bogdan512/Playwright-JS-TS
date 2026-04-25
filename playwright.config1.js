@@ -1,11 +1,14 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
+import { worker } from 'node:cluster';
 
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
 const config =({
   testDir: './tests',
+  retries: 1,
+  workers: 1, //by default it will be 5 workers
   // 40 seconds for each test
   timeout: 40 * 1000,
 // Expect a condition to  be met within 30 seconds
