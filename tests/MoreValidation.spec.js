@@ -1,6 +1,7 @@
 const {test, expect} = require('@playwright/test');
 
-
+//test.describe.configure({mode: 'parallel'});
+//test.describe.configure({mode: 'serial'}); if tests are dependent on each other, if one fails the others will not run 
 test("Pop-up validation", async ({page})=>
 {
     await page.goto("https://www.rahulshettyacademy.com/AutomationPractice/");
